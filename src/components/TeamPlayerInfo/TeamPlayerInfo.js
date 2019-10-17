@@ -1,14 +1,20 @@
 import React from 'react';
+import './TeamPlayerInfo.css';
 
-export const TeamPlayerInfo = (props) => {
-    const { onTeamPlayerClick, weight, image, id, player } = props;
-    return <div className="team-container" onClick={onTeamPlayerClick(id)}>
-        <div className="img-container">
-            <img alt="" src={image}></img>
+export const TeamPlayerInfo = (props) => { // console.log(props)
+    const { onTeamPlayerClick, image, id, player, position, price } = props;
+    return <div className="team-player-container" onClick={onTeamPlayerClick(id)}>
+        <div className="img-container row">
+            <img alt="" src={image} className="player-img"></img>
         </div>
-        <h2>{player}</h2>
-        <div className="player-data-container">
-            weight: {weight}
+        <h4 className="text-primary text-bold">{player}</h4>
+        <div className="row">
+            <div className="col-6 text-right">Position:</div>
+            <div className="col-6 text-left">{position}</div>
         </div>
-        </div>;
+        <div className="row">
+            <div className="col-6 text-right">Price:</div>
+            <div className="col-6 text-left">{price}</div>
+        </div>
+    </div>;
 }

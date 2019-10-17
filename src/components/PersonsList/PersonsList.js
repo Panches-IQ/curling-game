@@ -4,6 +4,7 @@ import { personService } from '../../common/services/person';
 import { appService } from '../../common/services/app';
 import { filter as rxfilter } from 'rxjs/operators';
 import { constants } from '../../common/helpers/constants';
+import './PersonsList.css';
 
 export class PersonsList extends Component {
     constructor(props) {
@@ -38,13 +39,16 @@ export class PersonsList extends Component {
 
     renderTeamName = () => {
         const { teamname } = this.state;
-        return <div className="team-name" onClick={this.handleExpand}>{teamname}</div>;
+        return <div className="team-name btn btn-primary btn-sm btn-block my-2" onClick={this.handleExpand}>{teamname}</div>;
     }
 
     renderPerson = (item) => {
-        return <div key={item.id} onClick={this.onPersonSelect(item)} className="person">
-            {item.player}: {item.price}
-            </div>;
+        return <div className="row">
+            <div key={item.id} onClick={this.onPersonSelect(item)} className="col-6 text-right person-name btn btn-link">
+            {item.player} 
+            </div>
+            <div className="col-6 text-left person-price">Price: {item.price}</div>
+            </div>
     }
 
     renderPersonList = () => {

@@ -6,6 +6,7 @@ class AppService {
         this.team = new BehaviorSubject([]);
         this.player = new BehaviorSubject(null);
         this.state = new BehaviorSubject({ type: '', payload: null });
+        this.teamName = new BehaviorSubject('');
     }
 }
 

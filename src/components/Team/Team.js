@@ -18,7 +18,7 @@ export class Team extends Component {
             modalShow: false,
             currentPlayer: null,
             isNewPlayer: false,
-            budget: 0
+            teamname: ''
         }
     }
 
@@ -29,6 +29,10 @@ export class Team extends Component {
                 const canAddPlayer = this.analyzePlayer(data);
                 this.setState({ currentPlayer: data, modalShow: true, canAddPlayer, isNewPlayer: true });
             }));
+        this.subscribers.push(appService.teamName
+            .subscribe(teamname => {
+                this.setState({ teamname });
+            }));
     }
 
     componentWillUnmount() {
@@ -36,9 +40,9 @@ export class Team extends Component {
     }
 
     analyzePlayer = (player) => {
-        // check for budget and team roles
-        const { team, budget } = this.state;
-        if (budget + player.price > this.config.budgetLimit || team.length > 3)
+        const { team } = this.state;
+        const teamPrice = reduce(team, (acc, i) => (acc + i.price), 0);
+        if (teamPrice + player.price > this.config.budgetLimit || team.length > 3)
             return false;
         
         return reduce(team, (acc, i) => (acc && i.team !== player.team), true);
@@ -70,9 +74,42 @@ export class Team extends Component {
     }
 
     renderPlayerDetails = (currentPlayer) => {
-        return <div>
-            <img alt="" src={get(currentPlayer, 'image')}></img>
+        return <div className="row">
+            <div className="col-4">
+                <img alt="" src={get(currentPlayer, 'image')}></img>
+            </div>
+            <div className="col-8">
+                <div className="row">
+                    <div className="col-4 text-left">Name:</div>
+                    <div className="col-8 text-left font-weight-bold">{get(currentPlayer, 'player', '')}</div>
+                </div>
+                <div className="row">
+                    <div className="col-4 text-left">Weight:</div>
+                    <div className="col-8 text-left font-weight-bold">{get(currentPlayer, 'weight', '')}</div>
+                </div>
+                <div className="row">
+                    <div className="col-4 text-left">Height:</div>
+                    <div className="col-8 text-left font-weight-bold">{get(currentPlayer, 'height', '')}</div>
+                </div>
+                <div className="row">
+                    <div className="col-4 text-left">Nationality:</div>
+                    <div className="col-8 text-left font-weight-bold">{get(currentPlayer, 'nationality', '')}</div>
+                </div>
+                <div className="row">
+                    <div className="col-4 text-left">Postion:</div>
+                    <div className="col-8 text-left font-weight-bold">{get(currentPlayer, 'position', '')}</div>
+                </div>
+                <div className="row">
+                    <div className="col-4 text-left">Price:</div>
+                    <div className="col-8 text-left font-weight-bold">{get(currentPlayer, 'price', '')}</div>
+                </div>
+            </div>
         </div>
+    }
+
+    renderTeamName = () => {
+        const { teamname } = this.state;
+        return <div className="text-primary">Your team: {teamname}</div>
     }
 
     renderTeamPlayers = () => {
@@ -83,7 +120,7 @@ export class Team extends Component {
         const { modalShow, currentPlayer, canAddPlayer, isNewPlayer } = this.state;
 
         return <div className="team-container">
-            TEAM
+            { this.renderTeamName() }
             { this.renderTeamPlayers() }
             <Modal show={modalShow}>
                 <Modal.Header>
@@ -94,9 +131,9 @@ export class Team extends Component {
                 </Modal.Body>
                 <Modal.Footer>
                     <div className="buttons">
-                        <input type="button" value="Cancel" onClick={this.handleModal(false)}></input>
-                        { !isNewPlayer ? <input type="button" value="Delete" onClick={this.deletePlayer}></input> : null }
-                        { isNewPlayer ? <input type="button" value="Add Player" disabled={!canAddPlayer} onClick={this.addPlayer}></input> : null }
+                        <input type="button" className="btn btn-danger mx-1" value="Cancel" onClick={this.handleModal(false)}></input>
+                        { !isNewPlayer ? <input className="btn btn-warning mx-1" type="button" value="Delete" onClick={this.deletePlayer}></input> : null }
+                        { isNewPlayer ? <input className="btn btn-success mx-1" type="button" value="Add Player" disabled={!canAddPlayer} onClick={this.addPlayer}></input> : null }
                     </div>
                 </Modal.Footer>
             </Modal>

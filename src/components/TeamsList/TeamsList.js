@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { appService } from '../../common/services/app';
 import { map } from 'lodash';
 import { PersonsList } from '../PersonsList/PersonsList';
+import './TeamsList.css';
 
 export class TeamsList extends Component {
     constructor(props) {
@@ -24,12 +25,15 @@ export class TeamsList extends Component {
         this.subscribers.forEach(s => s.unsubscribe());
     }
 
+    renderNoTeams = () => {
+        return <div className="text-info">No teams found. Press 'Get Person List' to load teams.</div>
+    }
+
     renderTeamList = () => map(this.state.teams, team => <PersonsList key={team.teamname} { ...team } />);
 
     render() {
-        return <div className="persons-list-container">
-            TEAMLIST
-            { this.renderTeamList() }
+        return <div className="teams-list-container">
+            { this.state.teams.length ? this.renderTeamList() : this.renderNoTeams() }
             </div>;
     }
 }

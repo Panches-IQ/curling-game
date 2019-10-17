@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { appService } from '../../common/services/app';
+import './Credentials.css';
 
 export class Credentials extends Component {
     constructor(props) {
@@ -35,6 +36,7 @@ export class Credentials extends Component {
 
     onTeamNameChange = (e) => {
         this.setState({ teamname: e.target.value });
+        appService.teamName.next(e.target.value);
     }
 
     canPlay = () => {
@@ -45,22 +47,28 @@ export class Credentials extends Component {
     render() {
         const { email, name, teamname } = this.state;
         return <div className="team-container">
-            CREDENTIALS
-            <div className="teamname-wrapper">
-                <label htmlFor="teamname">Team Name:</label>
-                <input id="teamname" type="text" onChange={this.onTeamNameChange} value={teamname}></input>
+            <div className="credentials-separator"></div>
+            <div className="row">
+                <div className="col-10">
+                    <div className="row">
+                        <div className="col-3 text-right">Team name:</div>
+                        <input className="col-8" type="text" onChange={this.onTeamNameChange} value={teamname}></input>
+                    </div>
+                    <div className="row">
+                        <div className="col-3 text-right">Your name:</div>
+                        <input className="col-8" id="name" type="text" onChange={this.onNameChange} value={name}></input>
+                    </div>
+                    <div className="row">
+                        <div className="col-3 text-right">Your E-mail:</div>
+                        <input className="col-8" id="email" type="text" onChange={this.onEmailChange} value={email}></input>
+                    </div>
+                </div>
+                <div className="col-2">
+                    <div className="play-button-wrapper">
+                        <input className="btn btn-xl btn-primary play-button" type="button" onChange={this.onPlayClick} disabled={!this.canPlay()} value="PLAY!"></input>
+                    </div>
+                </div>
             </div>
-            <div className="name-wrapper">
-                <label htmlFor="name">Name:</label>
-                <input id="name" type="text" onChange={this.onNameChange} value={name}></input>
-            </div>
-            <div className="email-wrapper">
-                <label htmlFor="email">E-mail:</label>
-                <input id="email" type="text" onChange={this.onEmailChange} value={email}></input>
-            </div>
-            <div className="play-button-wrapper">
-                <input type="button" onChange={this.onPlayClick} disabled={!this.canPlay()} value="PLAY!"></input>
-            </div>
-            </div>;
+        </div>;
     }
 }
