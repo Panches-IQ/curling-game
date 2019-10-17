@@ -76,7 +76,7 @@ export class Team extends Component {
     }
 
     renderTeamPlayers = () => {
-        return map(this.state.team, item => <TeamPlayerInfo onTeamPlayerClick={this.onTeamPlayerClick} { ...item } />);
+        return map(this.state.team, item => <TeamPlayerInfo key={item.id} onTeamPlayerClick={this.onTeamPlayerClick} { ...item } />);
     }
 
     render() { // console.log(this)
