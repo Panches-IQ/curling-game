@@ -39,7 +39,7 @@ export class Credentials extends Component {
 
     canPlay = () => {
         const { team, name, email, teamname } = this.state;
-        return team.length > 3 && teamname && name && email && /\@/.test(email);
+        return team.length > 3 && teamname && name && email && /@/.test(email);
     }
 
     render() {

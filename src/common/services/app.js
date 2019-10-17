@@ -10,4 +10,4 @@ class AppService {
 }
 
 export const appService = new AppService();
-window.appService = appService;
+// window.appService = appService;
