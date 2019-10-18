@@ -73,36 +73,18 @@ export class Team extends Component {
         return <div>{get(currentPlayer, 'player', 'n-a')}</div>;
     }
 
-    renderPlayerDetails = (currentPlayer) => {
+    renderPlayerDetails = (player) => {
+        const fields = ['player', 'position', 'weight', 'height', 'nationality', 'dominant-hand', 'price'];
+        const labels = ['Name', 'Position', 'Weight', 'Height', 'Nationality', 'Work hand', 'Price']
         return <div className="row">
             <div className="col-4">
-                <img alt="" src={get(currentPlayer, 'image')}></img>
+                <img alt="" src={get(player, 'image')}></img>
             </div>
             <div className="col-8">
-                <div className="row">
-                    <div className="col-4 text-left">Name:</div>
-                    <div className="col-8 text-left font-weight-bold">{get(currentPlayer, 'player', '')}</div>
-                </div>
-                <div className="row">
-                    <div className="col-4 text-left">Weight:</div>
-                    <div className="col-8 text-left font-weight-bold">{get(currentPlayer, 'weight', '')}</div>
-                </div>
-                <div className="row">
-                    <div className="col-4 text-left">Height:</div>
-                    <div className="col-8 text-left font-weight-bold">{get(currentPlayer, 'height', '')}</div>
-                </div>
-                <div className="row">
-                    <div className="col-4 text-left">Nationality:</div>
-                    <div className="col-8 text-left font-weight-bold">{get(currentPlayer, 'nationality', '')}</div>
-                </div>
-                <div className="row">
-                    <div className="col-4 text-left">Postion:</div>
-                    <div className="col-8 text-left font-weight-bold">{get(currentPlayer, 'position', '')}</div>
-                </div>
-                <div className="row">
-                    <div className="col-4 text-left">Price:</div>
-                    <div className="col-8 text-left font-weight-bold">{get(currentPlayer, 'price', '')}</div>
-                </div>
+                { map(fields, (i, indx) => <div key={i} className="row">
+                    <div className="col-5 text-left">{labels[indx]}:</div>
+                    <div className="col-7 text-left font-weight-bold">{get(player, `[${i}]`, 'n/a')}</div>
+                </div>) }
             </div>
         </div>
     }
@@ -122,7 +104,7 @@ export class Team extends Component {
         return <div className="team-container">
             { this.renderTeamName() }
             { this.renderTeamPlayers() }
-            <Modal show={modalShow}>
+            <Modal show={modalShow} onHide={this.handleModal(false)}>
                 <Modal.Header>
                     <h1>{this.renderPlayerName(currentPlayer)}</h1>
                 </Modal.Header>

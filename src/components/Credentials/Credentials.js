@@ -10,8 +10,7 @@ export class Credentials extends Component {
         this.state = {
             team: [],
             name: '',
-            email: '',
-            teamname: ''
+            email: ''
         }
     }
 
@@ -27,33 +26,33 @@ export class Credentials extends Component {
     }
 
     onEmailChange = (e) => {
-        this.setState({ email: e.target.value });
+        this.setState({ email: e.target.value }, () => {
+            this.onTeamNameChange();
+        });
     }
 
     onNameChange = (e) => {
-        this.setState({ name: e.target.value });
+        this.setState({ name: e.target.value }, () => {
+            this.onTeamNameChange();
+        });
     }
 
-    onTeamNameChange = (e) => {
-        this.setState({ teamname: e.target.value });
-        appService.teamName.next(e.target.value);
+    onTeamNameChange = () => {
+        const { name, email } = this.state;
+        appService.teamName.next(`${name || ''}${name || email ? ':' : ''} ${email}`);
     }
 
     canPlay = () => {
-        const { team, name, email, teamname } = this.state;
-        return team.length > 3 && teamname && name && email && /@/.test(email);
+        const { team, name, email } = this.state;
+        return team.length > 3 && name && email && /@/.test(email);
     }
 
     render() {
-        const { email, name, teamname } = this.state;
+        const { email, name } = this.state;
         return <div className="team-container">
             <div className="credentials-separator"></div>
             <div className="row">
                 <div className="col-10">
-                    <div className="row">
-                        <div className="col-3 text-right">Team name:</div>
-                        <input className="col-8" type="text" onChange={this.onTeamNameChange} value={teamname}></input>
-                    </div>
                     <div className="row">
                         <div className="col-3 text-right">Your name:</div>
                         <input className="col-8" id="name" type="text" onChange={this.onNameChange} value={name}></input>

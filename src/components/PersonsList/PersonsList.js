@@ -43,12 +43,12 @@ export class PersonsList extends Component {
     }
 
     renderPerson = (item) => {
-        return <div className="row">
-            <div key={item.id} onClick={this.onPersonSelect(item)} className="col-6 text-right person-name btn btn-link">
-            {item.player} 
+        return <div className="row" key={item.id}>
+            <div onClick={this.onPersonSelect(item)} className="col-6 text-right person-name btn btn-link">
+                {item.player} 
             </div>
             <div className="col-6 text-left person-price">Price: {item.price}</div>
-            </div>
+        </div>
     }
 
     renderPersonList = () => {
