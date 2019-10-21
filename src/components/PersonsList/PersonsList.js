@@ -17,7 +17,7 @@ export class PersonsList extends Component {
         }
     }
 
-    UNSAFE_componentWillMount() {
+    componentDidMount() {
         this.subscribers.push(appService.state
             .pipe(rxfilter(a => a.type === constants.TEAMLIST_CLOSE && a.payload.teamname !== this.state.teamname))
             .subscribe(() => {

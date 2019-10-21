@@ -14,7 +14,7 @@ export class Credentials extends Component {
         }
     }
 
-    UNSAFE_componentWillMount() {
+    componentDidMount() {
         this.subscribers.push(appService.team
             .subscribe(team => {
                 this.setState({ team });

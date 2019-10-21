@@ -14,7 +14,7 @@ export class TeamsList extends Component {
         }
     }
 
-    UNSAFE_componentWillMount() {
+    componentDidMount() {
         this.subscribers.push(appService.persons
             .subscribe(teams => {
                 this.setState({ teams })

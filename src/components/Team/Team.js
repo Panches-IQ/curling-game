@@ -22,7 +22,7 @@ export class Team extends Component {
         }
     }
 
-    UNSAFE_componentWillMount() {        
+    componentDidMount() {        
         this.subscribers.push(appService.player
             .pipe(rxfilter(a => !!a))
             .subscribe(data => {
