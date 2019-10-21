@@ -51,17 +51,17 @@ export class Team extends Component {
     addPlayer = () => {
         const team = this.state.team.concat([this.state.currentPlayer]);
         appService.team.next(team);
-        this.setState({ team, modalShow: false, currentPlayer: null });
+        this.setState({ team, modalShow: false });
     }
 
     deletePlayer = () => {
         const team = filter(this.state.team, i => i.id !== this.state.currentPlayer.id);
         appService.team.next(team);
-        this.setState({ team, modalShow: false, currentPlayer: null });
+        this.setState({ team, modalShow: false });
     }
 
     handleModal = (state) => () => {
-        this.setState({ modalShow: state, currentPlayer: state ? this.state.currentPlayer : null });
+        this.setState({ modalShow: state });
     }
 
     onTeamPlayerClick = (id) => () => {
