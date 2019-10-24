@@ -1,10 +1,10 @@
-## To run application
-
 ### `clone repository`
 ### `npm i`
 ### `npm start`
 
-Start working  
+Test http://jstest.monterosa.io/  
+
+Start:  
 Press 'Get Persons List'. You'll get the list of players grouped in teams.  
 Click on any team to expand the players list.  
 Click on player. Modal appears. Add player to a team or reject his/her.  
