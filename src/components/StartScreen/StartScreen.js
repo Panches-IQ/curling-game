@@ -4,6 +4,7 @@ import { Team } from '../Team';
 import { Credentials } from '../Credentials';
 import { Header } from '../Header';
 import './StartScreen.css';
+import { Game } from '../Game';
 
 export class StartScreen extends Component {
     constructor(props) {
@@ -23,6 +24,7 @@ export class StartScreen extends Component {
             <div className="row">
                 <div className="col"><Credentials /></div>
             </div>
+            <Game />
         </div>
     }
 }

@@ -7,6 +7,7 @@ class AppService {
         this.player = new BehaviorSubject(null);
         this.state = new BehaviorSubject({ type: '', payload: null });
         this.teamName = new BehaviorSubject('');
+        this.gamePlay = new BehaviorSubject(false);
     }
 }
 

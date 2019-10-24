@@ -47,6 +47,10 @@ export class Credentials extends Component {
         return team.length > 3 && name && email && /@/.test(email);
     }
 
+    onPlayClick = () => {
+        appService.gamePlay.next(true);
+    }
+
     render() {
         const { email, name } = this.state;
         return <div className="team-container">
@@ -64,7 +68,7 @@ export class Credentials extends Component {
                 </div>
                 <div className="col-2">
                     <div className="play-button-wrapper">
-                        <input className="btn btn-xl btn-primary play-button" type="button" onChange={this.onPlayClick} disabled={!this.canPlay()} value="PLAY!"></input>
+                        <input className="btn btn-xl btn-primary play-button" type="button" onClick={this.onPlayClick} disabled={!this.canPlay()} value="PLAY!"></input>
                     </div>
                 </div>
             </div>
